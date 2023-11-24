@@ -1,0 +1,82 @@
+{% extends 'main/layout/base.html' %}
+{% load static %}
+
+{% block body_block %}
+    <!-- Page Add Section Begin -->
+    <h4 style="padding-left: 350px;">ORDER DETAILS</h4>
+
+    <div class="card mt-3">
+        <div class="card-content">
+            <div class="row row-group m-0">
+                <div class="table-responsive">
+                    <form method="post" action="{% url 'update_status' %}">
+                        {% csrf_token %}
+                        <table class="table align-items-center table-flush table-borderless">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Order ID</th>
+                                    <th scope="col">User</th>
+                                    <th scope="col">Product</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if order_items %}
+                                    {% for item in order_items %}
+                                        <tr class="text-center">
+                                            <td>{{ item.order.id }}</td>
+                                            <td>{{ item.order.user.username }}</td>
+                                            <td class="product-col">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="img-thumbnail" style="max-width: 100px;">
+                                                    </div>
+                                                    <div class="col-md-8 align-self-center">
+                                                        <div class="p-title">
+                                                            <h5>{{ item.product.name }}</h5>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+            
+                                            <td class="price-col">₹ {{ item.item_price }}</td>
+                                            <td class="quantity-col">{{ item.quantity }}</td>
+                                            <td>
+                                                <select name="status_{{ item.order.id }}" class="form-control">
+                                                    {% for status_value, status_label in item.order.STATUS_CHOICES %}
+                                                        <option value="{{ status_value }}" {% if item.order.status == status_value %}selected{% endif %}>
+                                                            {{ status_label }}
+                                                        </option>
+                                                    {% endfor %}
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    <tr>
+                                        <td colspan="6">
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-light btn-round px-5" style="float: right;">Update Status</button>
+                                            </div>
+                                            <div>
+                                                {% if messages %}
+                                                    <div class="messages">
+                                                        {% for message in messages %}
+                                                            {% if message.tags %} {% endif %}{{ message }}
+                                                        {% endfor %}
+                                                
+                                                {% endif %}
+                                            </div>
+                                            </div>                                    
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

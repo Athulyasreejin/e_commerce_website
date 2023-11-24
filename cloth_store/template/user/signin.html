@@ -1,0 +1,51 @@
+{% extends 'user/layout/base.html' %}
+{% load static %}
+{% block body_block %}
+   
+   <!-- Page Add Section Begin -->
+    <section class="page-add">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="page-breadcrumb">
+                        <h2> Sign In<span>.</span></h2>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <img src="{% static 'user/img/add.jpg' %}" alt="">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Page Add Section End -->
+
+    <!-- Contact Section Begin -->
+    <div class="contact-section">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                  <form action="{% url 'signin' %}" method="post" class="contact-form">  
+                    {% csrf_token %} 
+                    <div class="row">
+                            <div class="col-lg-12">
+                                <input type="user" placeholder="Username" name="user_name" required>
+
+                                <input type="password" placeholder="Password" name="pass_word" required>
+
+                         </div>
+                            <div class="col-lg-12 text-right">
+                                <button type="submit">Sign In</button></div></div>
+                    </form>
+                    {% if error %}
+                    <div class="alert alert-danger" role="alert">{{error}}</div>
+                    {% endif %}
+              </div></div></div>
+            </div>
+                </div>
+            </div>
+        </div>
+
+
+
+{% endblock %}

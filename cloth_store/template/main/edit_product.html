@@ -1,0 +1,115 @@
+{% extends 'main/layout/base.html' %}
+{% load static %}
+{% block body_block %}
+
+
+<!-- <div class="row mt-3 "style="margin-left:50px;" >
+      <div class="col-lg-9">
+         <div class="card">
+           <div class="card-body">
+           <div class="card-title">EDIT PRODUCT</div>
+
+
+<form action="{% url 'edit_product_page' p=product.id %}" method="post">
+      {% csrf_token %}
+      <label>Name</label>
+      <input type="text" class="form-control" value="{{product.name}}"><br><br>
+
+      <label>Choose category</label><br>
+      <select class="form-control">
+            <option >{{ product.category }}</option>
+            {% for c in category %}
+            <!-- <option value="{{ product }}"></option> -->
+            <!-- <option value="{{ c.id }}">{{ c.name }}</option>
+            {% endfor %}
+      </select>
+
+      <br><br>
+
+      <label>Description</label>
+      <input type="text" class="form-control" value="{{product.description}}"><br><br>
+
+      <img src="{{product.image.url}}" height="100" width="100">
+      <input type="file"class="form-control" name="photo">
+
+      <br><br>
+      
+      <label>Price</label>
+      <input type="number" class="form-control" value="{{product.price}}"><br><br>
+
+      <label>Quantity</label>
+      <input type="number" class="form-control" value="{{product.quantity}}">
+</form>
+
+           </div></div></div></div>
+           <div class="form-group">
+            <a href="{% url 'products_page' %}" type="submit" class="btn btn-light btn-round px-5">Update</a>
+          </div>
+ -->
+ -->
+ 
+ <div class="row mt-3" style="margin-left: 50px;">
+     <div class="col-lg-9">
+         <div class="card">
+             <div class="card-body">
+                 <div class="card-title">EDIT PRODUCT</div>
+ 
+                 <form action="{% url 'edit_product_page' product.id %}" method="post" enctype="multipart/form-data">
+                     {% csrf_token %}
+ 
+                     <label>Name</label>
+                     <input type="text" class="form-control" name="name" value="{{ product.name }}"><br><br>
+ 
+                     <!-- <label>Choose category</label><br>
+                     <select class="form-control" name="category" >
+                         <option value="{{ product.category.id }}">{{ product.category.name }}</option>
+                         {% for c in category %}
+                         <option value="{{ c.id }}">{{ c.name }}</option>
+                         {% endfor %}
+                     </select> -->
+                     <label>Choose category</label><br>
+                     <select class="form-control" name="category">
+                         <option value="{{ product.category.id }}">{{ product.category.name }}</option>
+                         {% for c in category %}
+                         {% if c.id != product.category.id %} <!-- Check if it's not the current category -->
+                         <option value="{{ c.id }}">{{ c.name }}</option>
+                         {% endif %}
+                         {% endfor %}
+                     </select>
+                     
+                     <br><br>
+ 
+                     <label>Description</label>
+                     <input type="text" class="form-control" name="description" value="{{ product.description }}"><br><br>
+ 
+                     <label>Image</label>
+                     <img src="{{ product.image.url }}" height="100" width="100">
+                     <input type="file" class="form-control" name="image">
+ 
+                     <br><br>
+                     <label>Color</label>
+                     <input type="text" class="form-control" name="color" value="{{ product.color }}"><br><br>
+
+                     <label>Size</label>
+                     <input type="text" class="form-control" name="size" value="{{ product.size }}"><br><br>
+
+ 
+                     <label>Price</label>
+                     <input type="number" class="form-control" name="price" value="{{ product.price }}"><br><br>
+ 
+                     <label>Quantity</label>
+                     <input type="number" class="form-control" name="quantity" value="{{ product.quantity }}">
+ 
+                     <br><br>
+ 
+                     <div class="form-group">
+                         <button type="submit" class="btn btn-light btn-round px-5">Update</button>
+                     </div>
+                 </form>
+             </div>
+         </div>
+     </div>
+ </div>
+ 
+ 
+{% endblock %}

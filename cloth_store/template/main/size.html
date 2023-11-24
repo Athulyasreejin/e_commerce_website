@@ -1,0 +1,21 @@
+{% extends 'main/layout/base.html' %}
+{% load static %}
+{% block body_block %}
+
+<div class="row mt-3" style="margin-left: 100px;padding-top: 100px; margin-bottom: 200px;">
+    <div class="col-lg-9">
+       <div class="card">
+         <div class="card-body">
+         <div class="card-title">ADD SIZE</div>
+         <hr>
+         <form method="post" action="{% url 'add_size' %}">
+            {% csrf_token %}
+            <div class="form-group">
+          <label for="input-1">Name</label>
+          <input type="text" class="form-control" id="input-1" placeholder="Enter category Name" name="color">
+         </div>
+         <div class="form-group">
+            <button type="submit" class="btn btn-light btn-round px-5">Save</button>
+          </div>
+</form></div></div></div></div>
+ {% endblock %}

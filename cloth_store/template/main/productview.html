@@ -1,0 +1,42 @@
+{% extends 'main/layout/base.html' %}
+{% load static %}
+{% block body_block %}
+
+
+           <table border="1" width="100%" cellpadding="20">
+                 <thead>
+                       <tr>
+                             <td>PRODUCT</td>
+                             <td>CATEGORY</td>
+                             <td>DESCRIPTION</td>
+                             <td>IMAGE</td>
+                             <td>COLOR</td>
+                             <td>SIZE</td>
+
+                             <td>PRICE</td>
+                             <td>QUANTITY</td>
+                             <td>ACTION</td>
+                       </tr>
+                 </thead> 
+                 <tbody>
+
+                       {% for p in product %}
+                       <tr>
+                             <td>{{p.name}}</td>
+                             <td>{{p.category.name}}</td>
+                             <td>{{p.description}}</td>
+                             <td><img src={{p.photo.url}} height="100" width="80"></td>
+                             <td>{{p.color}}</td>
+                             <td>{{p.size}}</td>
+
+                             <td>{{p.price}}</td>
+                             <td>{{p.count}}</td>
+                             <td>
+                                   <a href="{% url 'delete_product' p.id %}">DELETE</a>
+                                   <a href="{% url 'edit_product_page' p.id %}">EDIT</a>
+                             </td>
+                       </tr>
+                       {% endfor %}
+                 </tbody>
+           </table>
+           {% endblock %}
